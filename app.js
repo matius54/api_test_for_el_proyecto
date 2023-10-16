@@ -1,5 +1,5 @@
-//var DEF_HOST = "../../api"
-var DEF_HOST = ""
+//var DEF_HOST = "../../../api"
+var DEF_HOST = "http://localhost:8080/api"
 var TEMPLATE_POST = {method: 'POST',headers: {'Content-Type': 'application/json',},}
 var host = ""
 var qr_inner = {}
@@ -176,6 +176,9 @@ function userinfo(confirm){
     }
     let limit = document.getElementById("userinfo-limit").value
     let offset = document.getElementById("userinfo-offset").value
+    let orden = document.getElementById("asc").checked
+    let orderBy = document.getElementById("orderBy").value
+    let searchBy = document.getElementById("searchBy").value
 
     if(all_users){
         document.getElementById("userinfo-users").value = 'all'
@@ -204,6 +207,9 @@ function userinfo(confirm){
             k++
         }
     }
+    if(searchBy)url_arguments += '&type=' + searchBy
+    if(orden)url_arguments += '&order=asc'
+    if(orderBy)url_arguments += '&orderBy=' + orderBy
     if(limit!=100)url_arguments += '&limit=' + limit
     if(offset!=0)url_arguments += '&offset=' + offset
     document.getElementById("userinfo-in").innerHTML = '/userinfo' + url_arguments
